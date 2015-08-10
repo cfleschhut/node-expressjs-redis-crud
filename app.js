@@ -6,6 +6,9 @@ app.use(logger);
 
 app.use(express.static('public'));
 
+var bodyParser = require("body-parser");
+var parseUrlencoded = bodyParser.urlencoded({extended: false});
+
 var blocks = {
   'Fixed': 'Fastened securely in position',
   'Movable': 'Capable of being moved',
@@ -33,6 +36,16 @@ app.get('/blocks/:name', function(request, response) {
     response.status(404).json('no description found for ' + request.params.name);
   } else {
     response.json(description);
+  }
+});
+
+app.post("/blocks", parseUrlencoded, function(request, response) {
+  var newBlock = request.body;
+  if (!newBlock.description.match(/^\s*$/)) {
+    blocks[newBlock.name] = newBlock.description;
+    response.status(201).json(newBlock.name);
+  } else {
+    response.status(400).json("Description can’t be blank");
   }
 });
 
