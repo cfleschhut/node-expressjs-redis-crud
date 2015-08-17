@@ -5,7 +5,7 @@ $(document).ready(function() {
     var block, content;
     for (var i in blocks) {
       block = blocks[i];
-      content = '<a href="/blocks/' + block + '">' + block + '</a>'
+      content = '<a href="#" data-block="' + block + '">&times;</a> <a href="/blocks/' + block + '">' + block + '</a>'
       list.push($("<li>", { html: content }));
     }
     $(".block-list").append(list);
@@ -28,6 +28,20 @@ $(document).ready(function() {
     }).done(function(blockName) {
       appendToList([blockName]);
       form.trigger("reset");
+    });
+  });
+
+  $(".block-list").on("click", "a[data-block]", function(ev) {
+    ev.preventDefault();
+    if (!confirm("Delete block?")) {
+      return false;
+    }
+    var target = $(event.target);
+    $.ajax({
+      url: "/blocks/" + target.data("block"),
+      method: "DELETE"
+    }).done(function(data) {
+      target.parents("li").remove();
     });
   });
 

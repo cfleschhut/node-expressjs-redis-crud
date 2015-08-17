@@ -49,6 +49,11 @@ app.post("/blocks", parseUrlencoded, function(request, response) {
   }
 });
 
+app.delete("/blocks/:name", function(request, response) {
+  delete blocks[request.blockName];
+  response.sendStatus(204);
+});
+
 app.listen(3001, function() {
   console.log('listening on port 3001');
 });
