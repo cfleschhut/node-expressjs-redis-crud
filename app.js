@@ -14,3 +14,5 @@ app.use('/blocks', blocks);
 app.listen(app.get('port'), function() {
   console.log('listening on port', app.get('port'));
 });
+
+module.exports = app;
