@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router();
+
 var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({extended: false});
 
@@ -10,9 +10,10 @@ if (process.env.REDISTOGO_URL) {
   client.auth(rtg.auth.split(':')[1]);
 } else {
   var client = redis.createClient();
+  client.select((process.env.NODE_ENV || 'development').length);
 }
 
-client.select((process.env.NODE_ENV || 'development').length);
+var router = express.Router();
 
 router.route("/")
   .get(function(request, response) {
