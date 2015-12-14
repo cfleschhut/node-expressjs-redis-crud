@@ -1,11 +1,11 @@
-var appendToList = function(blocks) {
+var appendToList = function(entries) {
   var list = [];
-  for (var i in blocks) {
-    var block = blocks[i];
-    if (!block) { continue; }
+  for (var i in entries) {
+    var entry = entries[i];
+    if (!entry) { continue; }
     var content = '';
-      content += '<a href="/blocks/' + block.id + '">' + block.name + '</a>';
-      content += '<button type="button" class="close" data-block="' + block.id + '">&times;</button>';
+      content += '<a href="/cities/' + entry.id + '">' + entry + '</a>';
+      content += '<button type="button" class="close" data-block="' + entry.id + '">&times;</button>';
     list.push($('<li>', { html: content, class: 'list-group-item' }));
   }
   $(".block-list").append(list);
@@ -16,7 +16,7 @@ $(document).ready(function() {
   // load all cities
 
   $.ajax({
-    url: "/blocks",
+    url: "/cities",
     method: "GET"
   }).done(appendToList);
 
@@ -27,15 +27,15 @@ $(document).ready(function() {
     ev.preventDefault();
 
     var form = $(this),
-      blockData = form.serialize();
+      formData = form.serialize();
 
     var alert = $(".alert");
     alert.addClass("hide");
 
     $.ajax({
-      url: "/blocks",
+      url: "/cities",
       method: "POST",
-      data: blockData
+      data: formData
     })
     .fail(function(response) {
       var msg = JSON.parse(response.responseText).message;
@@ -43,8 +43,8 @@ $(document).ready(function() {
         .removeClass("hide")
         .html(msg);
     })
-    .done(function(block) {
-      appendToList([block]);
+    .done(function(response) {
+      appendToList([response]);
       form.trigger("reset");
     });
   });
