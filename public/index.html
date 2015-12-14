@@ -3,33 +3,45 @@
 <head>
 <meta charset="utf-8">
 <title>Express JS Codeschool</title>
-<style type="text/css">
-body { font-family: "American Typewriter", "Helvetica Neue", sans-serif; }
-</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 
 <body>
 
-<h1>Cities</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="page-header">
+        <h1>Cities</h1>
+      </div>
 
-<ul class="block-list"></ul>
+      <ul class="block-list list-group"></ul>
 
-<form>
-  <fieldset>
-    <legend>New Block</legend>
-    <p>
-      <label>Name: <input name="name"></label>
-    </p>
-    <p>
-      <label>Description: <input name="description"></label>
-    </p>
-  </fieldset>
-  <p>
-    <input type="submit">
-  </p>
-</form>
+      <div class="alert alert-danger alert-dismissible fade in hide">
+      </div>
+
+      <form>
+        <fieldset>
+          <legend>Add new city</legend>
+          <div class="form-group">
+            <label>Name:</label>
+            <input class="form-control" name="name" placeholder="Berlin">
+          </div>
+          <div class="form-group">
+            <label>Description:</label>
+            <textarea class="form-control" name="description" placeholder="…"></textarea>
+          </div>
+          <input type="submit" class="btn btn-primary btn-block" value="Add">
+        </fieldset>
+      </form>
+
+      <hr>
+    </div>
+  </div>
+</div>
 
 <script src="js/jquery-1.11.3.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="js/client.js"></script>
 
 </body>

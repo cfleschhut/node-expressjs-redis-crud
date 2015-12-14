@@ -3,18 +3,25 @@ var appendToList = function(blocks) {
   for (var i in blocks) {
     var block = blocks[i];
     if (!block) { continue; }
-    var content = '<a href="#" data-block="' + block.id + '">&times;</a> <a href="/blocks/' + block.id + '">' + block.name + '</a>';
-    list.push($("<li>", { html: content }));
+    var content = '';
+      content += '<a href="/blocks/' + block.id + '">' + block.name + '</a>';
+      content += '<button type="button" class="close" data-block="' + block.id + '">&times;</button>';
+    list.push($('<li>', { html: content, class: 'list-group-item' }));
   }
   $(".block-list").append(list);
 };
 
 $(document).ready(function() {
 
+  // load all cities
+
   $.ajax({
     url: "/blocks",
     method: "GET"
   }).done(appendToList);
+
+
+  // add city
 
   $("form").on("submit", function(ev) {
     ev.preventDefault();
@@ -22,13 +29,19 @@ $(document).ready(function() {
     var form = $(this),
       blockData = form.serialize();
 
+    var alert = $(".alert");
+    alert.addClass("hide");
+
     $.ajax({
       url: "/blocks",
       method: "POST",
       data: blockData
     })
     .fail(function(response) {
-      console.log(JSON.parse(response.responseText).message);
+      var msg = JSON.parse(response.responseText).message;
+      alert
+        .removeClass("hide")
+        .html(msg);
     })
     .done(function(block) {
       appendToList([block]);
@@ -36,7 +49,10 @@ $(document).ready(function() {
     });
   });
 
-  $(".block-list").on("click", "a[data-block]", function(ev) {
+
+  // delete city
+
+  $(".block-list").on("click", "[data-block]", function(ev) {
     ev.preventDefault();
     var target = $(event.target);
 
