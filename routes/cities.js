@@ -38,10 +38,10 @@ router.route('/')
 router.route('/:name')
   .get(function(request, response) {
     client.hget('cities', request.params.name, function(error, description) {
-      response.json({
+      response.render('show.ejs', {
         name: request.params.name,
         description: description
-      })
+      });
     });
   })
 

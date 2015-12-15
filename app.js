@@ -4,7 +4,7 @@ var app = express();
 app.set('port', (process.env.PORT || 3001));
 
 var logger = require('./logger');
-// app.use(logger);
+app.use(logger);
 
 app.use(express.static('public'));
 
