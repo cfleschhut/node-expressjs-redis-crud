@@ -33,10 +33,11 @@ $(document).ready(function() {
     ev.preventDefault();
 
     var form = $(this),
-      formData = form.serialize();
+      formData = form.serialize(),
+      requiredFields = form.find(".form-group.required"),
+      alert = $(".alert");
 
-    var alert = $(".alert");
-    alert.addClass("hide");
+    alert.remove();
 
     $.ajax({
       url: "/cities",
@@ -45,14 +46,19 @@ $(document).ready(function() {
     })
     .fail(function(response) {
       var msg = JSON.parse(response.responseText).message;
-      alert
-        .removeClass("hide")
-        .html(msg);
+      requiredFields.addClass("has-error");
+      var template = $($("#alert_tmpl").html());
+      $("#flash-msg-wrapper")
+        .html(template.html(msg));
     })
     .done(function(response) {
       appendToList([response]);
       form.trigger("reset");
     });
+  });
+
+  $("form").on("change", "[required]", function() {
+    $(this).parent().removeClass("has-error");
   });
 
 

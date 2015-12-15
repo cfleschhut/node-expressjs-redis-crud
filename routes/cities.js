@@ -23,6 +23,12 @@ router.route('/')
 
   .post(parseUrlencoded, function(request, response) {
     var newCity = request.body
+    if (!newCity.name || !newCity.description) {
+      response.status(400).json({
+        message: "Please fill out name and description."
+      });
+      return false;
+    }
     client.hset('cities', newCity.name, newCity.description, function(error) {
       if (error) throw error;
       response.status(201).json(newCity.name);
