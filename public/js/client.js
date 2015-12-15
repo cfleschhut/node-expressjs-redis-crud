@@ -4,8 +4,8 @@ var appendToList = function(entries) {
     var entry = entries[i];
     if (!entry) { continue; }
     var content = '';
-      content += '<a href="/cities/' + entry.id + '">' + entry + '</a>';
-      content += '<button type="button" class="close" data-block="' + entry.id + '">&times;</button>';
+      content += '<a href="/cities/' + entry + '">' + entry + '</a>';
+      content += '<button type="button" class="close" data-block="' + entry + '">&times;</button>';
     list.push($('<li>', { html: content, class: 'list-group-item' }));
   }
   $(".block-list").append(list);

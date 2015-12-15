@@ -13,7 +13,7 @@ if (process.env.REDISTOGO_URL) {
 
 var router = express.Router();
 
-router.route("/")
+router.route('/')
   .get(function(request, response) {
     client.hkeys('cities', function(error, names) {
       if (error) throw error;
@@ -26,6 +26,18 @@ router.route("/")
     client.hset('cities', newCity.name, newCity.description, function(error) {
       if (error) throw error;
       response.status(201).json(newCity.name);
+    });
+  });
+
+router.route('/:name')
+  .get(function(request, response) {
+    client.hget('cities', request.params.name, function(error, description) {
+      response.json({
+        city: {
+          name: request.params.name,
+          description: description
+        }
+      })
     });
   });
 
