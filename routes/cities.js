@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({extended: false});
 
 var redis = require('redis');
-if (process.env.REDISTOGO_URL) {
+if (process.env.REDIS_URL) {
   var client = redis.createClient(process.env.REDIS_URL);
 } else {
   var client = redis.createClient();
