@@ -53,6 +53,7 @@ $(document).ready(function() {
     })
     .done(function(response) {
       appendToList([response]);
+      $(document.body).animate({ scrollTop: 0 }, 200);
       form.trigger("reset");
     });
   });
