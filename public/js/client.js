@@ -5,10 +5,10 @@ var appendToList = function(entries) {
     if (!entry) { continue; }
     var content = '';
       content += '<a href="/cities/' + entry + '">' + entry + '</a>';
-      content += '<button type="button" class="close" data-block="' + entry + '">&times;</button>';
+      content += '<button type="button" class="close" data-entry="' + entry + '">&times;</button>';
     list.push($('<li>', { html: content, class: 'list-group-item' }));
   }
-  $(".block-list").append(list);
+  $(".entry-list").append(list);
 };
 
 $(document).ajaxStart(function() {
@@ -58,14 +58,14 @@ $(document).ready(function() {
 
   // delete city
 
-  $(".block-list").on("click", "[data-block]", function(ev) {
+  $(".entry-list").on("click", "[data-entry]", function(ev) {
     ev.preventDefault();
     var target = $(event.target);
 
-    if (!confirm("Delete block?")) { return false; }
+    if (!confirm("Delete city?")) { return false; }
 
     $.ajax({
-      url: "/blocks/" + target.data("block"),
+      url: "/cities/" + target.data("entry"),
       method: "DELETE"
     }).done(function(data) {
       target.parents("li").remove();

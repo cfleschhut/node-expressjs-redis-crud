@@ -33,11 +33,16 @@ router.route('/:name')
   .get(function(request, response) {
     client.hget('cities', request.params.name, function(error, description) {
       response.json({
-        city: {
-          name: request.params.name,
-          description: description
-        }
+        name: request.params.name,
+        description: description
       })
+    });
+  })
+
+  .delete(function(request, response) {
+    client.hdel('cities', request.params.name, function(error) {
+      if (error) throw error;
+      response.sendStatus(204);
     });
   });
 
