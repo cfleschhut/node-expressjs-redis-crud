@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>Express JS Codeschool</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -12,10 +13,17 @@
   <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
       <div class="page-header">
-        <h1>Cities</h1>
+        <h1>
+          Cities
+          <small class="loading-spinner animate-rotate">
+            <i class="glyphicon glyphicon-refresh"></i>
+          </small>
+        </h1>
       </div>
 
-      <ul class="block-list list-group"></ul>
+
+      <ul class="block-list list-group">
+      </ul>
 
       <div class="alert alert-danger alert-dismissible fade in hide">
       </div>

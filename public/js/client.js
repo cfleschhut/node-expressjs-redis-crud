@@ -11,6 +11,12 @@ var appendToList = function(entries) {
   $(".block-list").append(list);
 };
 
+$(document).ajaxStart(function() {
+  $(".loading-spinner").show();
+}).ajaxStop(function() {
+  $(".loading-spinner").hide();
+});
+
 $(document).ready(function() {
 
   // load all cities
