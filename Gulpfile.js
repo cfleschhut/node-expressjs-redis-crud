@@ -3,7 +3,8 @@
 var gulp = require('gulp'),
   sass = require('gulp-sass'),
   minifyCss = require('gulp-minify-css'),
-  autoprefixer = require('gulp-autoprefixer');
+  autoprefixer = require('gulp-autoprefixer'),
+  rename = require('gulp-rename');
 
 gulp.task('styles', function() {
   return gulp.src('./public/src/scss/*.scss')
@@ -11,7 +12,9 @@ gulp.task('styles', function() {
     .pipe(autoprefixer({
       browsers: ['last 2 versions']
     }))
+    .pipe(gulp.dest('./public/dist/css'))
     .pipe(minifyCss())
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('./public/dist/css'));
 });
 
